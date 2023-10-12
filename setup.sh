@@ -251,6 +251,13 @@ else
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
 
+	echo -e "\n${purpleColour}[*] Fix time zone...\n${endColour}"
+	sleep 2
+	sudo timedatectl set-timezone Europe/Madrid
+	echo -e "\n${greenColour}[+] Done\n${endColour}"
+	sleep 1.5
+
+
 	echo -e "\n${greenColour}[+] Environment configured :D\n${endColour}"
 	sleep 1.5
 	
