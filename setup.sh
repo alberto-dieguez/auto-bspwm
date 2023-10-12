@@ -157,7 +157,7 @@ else
 	echo -e "\n${purpleColour}[*] Installing Powerlevel10k for user $user...\n${endColour}"
 	sleep 2
 	git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
-	echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+	#echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
 	if [ $? != 0 ] && [ $? != 130 ]; then
 		echo -e "\n${redColour}[-] Failed to install Powerlevel10k for user $user!\n${endColour}"
 		exit 1
@@ -169,7 +169,7 @@ else
 	echo -e "\n${purpleColour}[*] Installing Oh My Zsh and Powerlevel10k for user root...\n${endColour}"
 	sleep 2
 	sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
-	sudo echo 'source /root/powerlevel10k/powerlevel10k.zsh-theme' >>/root/.zshrc
+	#sudo echo 'source /root/powerlevel10k/powerlevel10k.zsh-theme' >>/root/.zshrc
 	if [ $? != 0 ] && [ $? != 130 ]; then
 		echo -e "\n${redColour}[-] Failed to install Oh My Zsh and Powerlevel10k for user root!\n${endColour}"
 		exit 1
@@ -213,7 +213,10 @@ else
 	sleep 2
 	cp -v $dir/.zshrc ~/.zshrc
 	sudo ln -sfv ~/.zshrc /root/.zshrc
-	cp -v $dir/root/.p10k.zsh /root/.p10k.zsh
+        cp -v $dir/.p10k.zsh ~
+	sudo cp -v $dir/root/.p10k.zsh /root/
+ 	sudo mkdir -p /usr/share/zsh-sudo/
+	sudo cp -v $dir/sudo.plugin.zsh /usr/share/zsh-sudo/
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
 	
