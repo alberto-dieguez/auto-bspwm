@@ -175,8 +175,8 @@ zle -N shift-right
 bindkey $terminfo[kLFT] shift-left
 bindkey $terminfo[kRIT] shift-right
 
-bindkey "^[[1;5D" vi-backward-word
-bindkey "^[[1;5C" vi-forward-word
+bindkey "^[[1;3D" vi-backward-word # alt + left
+bindkey "^[[1;3C" vi-forward-word # alt + right 
 
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
