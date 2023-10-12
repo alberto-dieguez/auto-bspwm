@@ -50,7 +50,7 @@ alias l='lsd --group-dirs=first'
 alias lla='lsd -lha --group-dirs=first'
 alias ls='lsd --group-dirs=first'
 
-alias vi='vim'
+alias vi='nvim'
 
 
 #####################################################
