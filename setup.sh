@@ -225,6 +225,9 @@ else
 	sudo cp -v $dir/scripts/whichSystem.py /usr/local/bin/
 	cp -rv $dir/scripts/*.sh ~/.config/polybar/shapes/scripts/
 	touch ~/.config/polybar/shapes/scripts/target
+ 	sleep 2
+  	~/.config/polybar/shapes/scripts/./colors-dark.sh --teal
+   	sleep 2
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
 	
