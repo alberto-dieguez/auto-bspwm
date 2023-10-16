@@ -206,6 +206,14 @@ else
 	echo -e "\n${purpleColour}[*] Configuring configuration files...\n${endColour}"
 	sleep 2
 	cp -rv $dir/config/* ~/.config/
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	sleep 2
+ 	~/.fzf/install --all
+  	sleep 2
+   	sudo git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	sleep 2
+ 	sudo ~/.fzf/install --all
+  	
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
 	
