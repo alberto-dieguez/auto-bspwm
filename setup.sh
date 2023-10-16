@@ -1,6 +1,6 @@
 #!/usr/bin/bash
 
-# Author: Alberto Diéguez (aka @ch1od0)
+# Author: Alberto Diéguez (aka @ch1od0), thx to @r1vs3c
 
 # Colours
 greenColour="\e[0;32m\033[1m"
@@ -27,41 +27,43 @@ function ctrl_c(){
 function banner(){
 	echo -e "\n${blueColour}"
 	sleep 0.05
-	echo -e "Entorno por @ch1od0"
+	echo -e " Environment for Kali Linux by @ch1od0, thx to @r1vs3c "
 	sleep 0.05
     	echo -e "${endColour}"
 }
 
 if [ "$user" == "root" ]; then
 	banner
-	echo -e "\n\n${redColour}[!] ¡No puedes ejecutar el script como usuario root!\n${endColour}"
+	echo -e "\n\n${redColour}[!] You should not run the script as the root user!\n${endColour}"
     	exit 1
 else
 	banner
 	sleep 1
-	echo -e "\n\n${blueColour}[*] Instalando los paquetes necesarios...\n${endColour}"
+	echo -e "\n\n${blueColour}[*] Installing necessary packages for the environment...\n${endColour}"
 	sleep 2
 	sudo apt install -y kitty rofi feh xclip ranger i3lock-fancy scrot scrub wmname firejail imagemagick cmatrix htop neofetch python3-pip procps tty-clock fzf lsd bat pamixer flameshot
 	if [ $? != 0 ] && [ $? != 130 ]; then
-		echo -e "\n${redColour}[-] ¡Error al instalar los paquetes!\n${endColour}"
+		echo -e "\n${redColour}[-] Failed to install some packages!\n${endColour}"
 		exit 1
 	else
-		echo -e "\n${greenColour}[+] OK\n${endColour}"
+		echo -e "\n${greenColour}[+] Done\n${endColour}"
 		sleep 1.5
 	fi
-	
-	echo -e "\n${purpleColour}[*] ¡Instalando paquetes necesarios para bspwm...\n${endColour}"
+
+ 	echo -e "\n${blueColour}[*] Starting installation of necessary dependencies for the environment...\n${endColour}"
+	sleep 0.5
+ 
+	echo -e "\n${purpleColour}[*] Installing necessary dependencies for bspwm...\n${endColour}"
 	sleep 2
 	sudo apt install -y build-essential git vim libxcb-util0-dev libxcb-ewmh-dev libxcb-randr0-dev libxcb-icccm4-dev libxcb-keysyms1-dev libxcb-xinerama0-dev libasound2-dev libxcb-xtest0-dev libxcb-shape0-dev libuv1-dev
 	if [ $? != 0 ] && [ $? != 130 ]; then
-		echo -e "\n${redColour}[-] ¡Error al instalar paqauetes para bspwm!\n${endColour}"
+		echo -e "\n${redColour}[-] Failed to install some dependencies for bspwm!\n${endColour}"
 		exit 1
 	else
-		echo -e "\n${greenColour}[+] OK\n${endColour}"
+		echo -e "\n${greenColour}[+] Done\n${endColour}"
 		sleep 1.5
 	fi
 	
-
 	echo -e "\n${purpleColour}[*] Installing necessary dependencies for polybar...\n${endColour}"
 	sleep 2
 	sudo apt install -y cmake cmake-data pkg-config python3-sphinx libcairo2-dev libxcb1-dev libxcb-util0-dev libxcb-randr0-dev libxcb-composite0-dev python3-xcbgen xcb-proto libxcb-image0-dev libxcb-ewmh-dev libxcb-icccm4-dev libxcb-xkb-dev libxcb-xrm-dev libxcb-cursor-dev libasound2-dev libpulse-dev libjsoncpp-dev libmpdclient-dev libcurl4-openssl-dev libnl-genl-3-dev
@@ -166,17 +168,28 @@ else
 		sleep 1.5
 	fi
 	
-	echo -e "\n${purpleColour}[*] Installing Oh My Zsh and Powerlevel10k for user root...\n${endColour}"
+	echo -e "\n${purpleColour}[*] Installing Powerlevel10k for user root...\n${endColour}"
 	sleep 2
 	sudo git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /root/powerlevel10k
 	#sudo echo 'source /root/powerlevel10k/powerlevel10k.zsh-theme' >>/root/.zshrc
 	if [ $? != 0 ] && [ $? != 130 ]; then
-		echo -e "\n${redColour}[-] Failed to install Oh My Zsh and Powerlevel10k for user root!\n${endColour}"
+		echo -e "\n${redColour}[-] Failed to install Powerlevel10k for user root!\n${endColour}"
 		exit 1
 	else
 		echo -e "\n${greenColour}[+] Done\n${endColour}"
 		sleep 1.5
 	fi
+
+ 	echo -e "\n${purpleColour}[*] Installing fzf for $user and user root...\n${endColour}"
+	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	sleep 2
+ 	~/.fzf/install --all
+  	sleep 2
+   	sudo git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
+	sleep 2
+ 	sudo ~/.fzf/install --all
+	echo -e "\n${greenColour}[+] Done\n${endColour}"
+	sleep 1.5
 	
 	echo -e "\n${blueColour}[*] Starting configuration of fonts, wallpaper, configuration files, .zshrc, .p10k.zsh, and scripts...\n${endColour}"
 	sleep 0.5
@@ -202,18 +215,10 @@ else
 	fi
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
-
+ 
 	echo -e "\n${purpleColour}[*] Configuring configuration files...\n${endColour}"
 	sleep 2
 	cp -rv $dir/config/* ~/.config/
-	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	sleep 2
- 	~/.fzf/install --all
-  	sleep 2
-   	sudo git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
-	sleep 2
- 	sudo ~/.fzf/install --all
-  	
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
 	
@@ -267,7 +272,6 @@ else
 	sudo timedatectl set-timezone Europe/Madrid
 	echo -e "\n${greenColour}[+] Done\n${endColour}"
 	sleep 1.5
-
 
 	echo -e "\n${greenColour}[+] Environment configured :D\n${endColour}"
 	sleep 1.5
