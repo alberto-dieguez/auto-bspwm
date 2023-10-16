@@ -14,7 +14,6 @@ grayColour="\e[0;37m\033[1m"
 
 # Global variables
 dir=$(pwd)
-fdir="$HOME/.local/share/fonts"
 user=$(whoami)
 
 trap ctrl_c INT
@@ -27,14 +26,13 @@ function ctrl_c(){
 function banner(){
       echo -e "\n${blueColour}"
       sleep 0.05
-      echo -e "Entorno por @ch1od0"
+      echo -e "Installing nvim & nvchad"
       sleep 0.05
       echo -e "${endColour}"
 }
 
 if [ "$user" == "root" ]; then
-      banner
-      echo -e "\n\n${redColour}[!] ¡No puedes ejecutar el script como usuario root!\n${endColour}"
+      echo -e "\n\n${redColour}[!] You can not execute the script as root user.\n${endColour}"
       exit 1
 else
       banner
@@ -47,11 +45,21 @@ else
       sudo mv $dir/nvim-linux64 /opt
       sleep 2
       sudo rm $dir/nvim-linux64.tar.gz
+      sudo rm -rf $dir/nvim-linux64
       sleep 2
       git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1 && nvim
-
       if [ $? != 0 ] && [ $? != 130 ]; then
-              echo -e "\n${redColour}[-] ¡Error al instalar los paquetes!\n${endColour}"
+              echo -e "\n${redColour}[-] Error installing the packages.\n${endColour}"
+              exit 1
+      else
+              echo -e "\n${greenColour}[+] OK\n${endColour}"
+              sleep 1.5
+      fi
+      sleep 4
+      echo -e "\n${purpleColour}[*] Installing neovim and nvchad for root...\n${endColour}"
+      sudo git clone https://github.com/NvChad/NvChad /root/.config/nvim --depth 1 && nvim
+      if [ $? != 0 ] && [ $? != 130 ]; then
+              echo -e "\n${redColour}[-] Error installing the packages.\n${endColour}"
               exit 1
       else
               echo -e "\n${greenColour}[+] OK\n${endColour}"
