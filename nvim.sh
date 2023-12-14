@@ -57,7 +57,7 @@ else
       fi
       sleep 4
       echo -e "\n${purpleColour}[*] Installing neovim and nvchad for root...\n${endColour}"
-      sudo git clone https://github.com/NvChad/NvChad /root/.config/nvim --depth 1 && sudo /opt/nvim-linux64/nvim
+      sudo git clone https://github.com/NvChad/NvChad /root/.config/nvim --depth 1 && sudo /opt/nvim-linux64/bin/nvim
       if [ $? != 0 ] && [ $? != 130 ]; then
               echo -e "\n${redColour}[-] Error installing the packages.\n${endColour}"
               exit 1
